@@ -4,11 +4,13 @@ jdk:
 
 script: ./mvnw clean install
 
-
 jobs:
   include:
     - stage: Test
       script: ./mvnw clean test
+    - stage: SonarCloud Analysis
+      script: ./mvnw verify sonar:sonar -Dsonar.projectKey=dimtgsn_travis-ci-example -Dsonar.organization=dimtgsn -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 
-notification:
+notifications:
   email: info@techprimers.com
+
